@@ -1,170 +1,162 @@
-Password Vault
+# 🔐 Password Vault
 
-A secure and user-friendly password management application built with Flutter. This application prioritizes on-device encryption to keep your sensitive data safe, offering features to securely store, retrieve, and export your passwords.
-Features
+A secure and user-friendly **Password Management Application** built with Flutter. This app prioritizes **on-device encryption**, offering secure storage, retrieval, and export of your passwords.
 
-    Secure On-Device Encryption: All passwords are encrypted using AES-256 GCM before being stored, leveraging the Android Keystore System (via flutter_secure_storage) for master key management and sqflite_sqlcipher for an encrypted local database.
+---
 
-    Password Management:
+## 🚀 Features
 
-        Add new password entries (Name, Username, Password, URL, Notes).
+### ✅ Secure On-Device Encryption
+- All passwords are encrypted using **AES-256 GCM**.
+- Utilizes **Android Keystore System** (via `flutter_secure_storage`) for master key management.
+- Encrypted local database with **`sqflite_sqlcipher`**.
 
-        View existing password entries.
+### 🔑 Password Management
+- Add, view, edit, and delete password entries (Name, Username, Password, URL, Notes).
+- Copy passwords securely to clipboard.
 
-        Edit and delete entries.
+### 🔐 Encrypted Export & Import
+- Export all password entries to a `.pvault` file (internally CSV format, externally AES-encrypted).
+- Encryption uses **PBKDF2 + AES-256 GCM**.
+- Import requires correct password for decryption.
 
-        Copy passwords to clipboard securely.
+### 📱 Cross-Platform Ready (Android-Focused)
+- Built with Flutter for cross-platform potential.
+- Focused on **robust Android security** best practices.
 
-    Encrypted Export & Import:
+---
 
-        Export all password entries to an encrypted .pvault file (CSV format internally).
+## 🛠 Technologies Used
 
-        The export file is encrypted using a key derived from a user-provided password and a unique salt (PBKDF2 + AES-256 GCM).
+| Technology | Purpose |
+|------------|---------|
+| **Flutter** | Cross-platform mobile app SDK |
+| `flutter_secure_storage` | Master key management using Android Keystore |
+| `sqflite_sqlcipher` | Encrypted local SQLite database |
+| `encrypt` | AES-256 GCM implementation |
+| `pointycastle` | PBKDF2 for key derivation |
+| `path_provider`, `path` | File system path access |
+| `csv` | CSV export/import format |
+| `permission_handler` | Runtime permissions |
+| `file_picker` | Importing `.pvault` files |
+| `share_plus` | Exporting/sharing encrypted `.pvault` file |
 
-        Import password entries from a .pvault file, requiring the correct import password.
+---
 
-    Cross-Platform (Android Focus): Developed with Flutter for potential cross-platform compatibility, with a current focus on robust Android security practices.
+## ⚙️ Setup and Installation
 
-Technologies Used
+### 📋 Prerequisites
 
-    Flutter: UI Toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.
+- **Flutter SDK**  
+  [Install Flutter](https://flutter.dev/docs/get-started/install) and add it to your system `PATH`.
 
-    flutter_secure_storage: Securely stores sensitive data (like encryption keys) using platform-specific secure storage (Android Keystore/EncryptedSharedPreferences on Android, Keychain on iOS).
+- **Android Studio**  
+  [Download Android Studio](https://developer.android.com/studio)  
+  - Install SDK Tools (API 34+)
+  - Accept licenses via:
+    ```bash
+    flutter doctor --android-licenses
+    ```
 
-    sqflite_sqlcipher: Provides an encrypted SQLite database for storing password entries locally.
+- **VS Code (Recommended)**  
+  - [Download VS Code](https://code.visualstudio.com/)  
+  - Install **Flutter extension** from Extensions marketplace.
 
-    encrypt: A Dart/Flutter package for symmetric (AES) and asymmetric (RSA) encryption. Used here for AES-256 GCM.
+---
 
-    pointycastle: A Dart implementation of cryptographic algorithms, used for Password-Based Key Derivation Function (PBKDF2).
+## 📦 Project Setup
 
-    path_provider & path: For accessing file system paths on the device.
+### 🔃 Clone or Create a New Project
 
-    csv: For converting data to and from CSV format.
+#### Option 1: Create New Project
+```bash
+flutter create password_vault_app
+cd password_vault_app
 
-    permission_handler: For requesting necessary runtime permissions (e.g., storage access).
+## 📁 Add Dependencies
+### Edit your pubspec.yaml and ensure these are listed:
 
-    file_picker: For allowing users to select files for import.
+yaml
+Copy
+Edit
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  flutter_secure_storage: ^9.0.0
+  sqflite_sqlcipher: ^2.3.0
+  path_provider: ^2.1.3
+  path: ^1.9.0
+  encrypt: ^5.0.1
+  pointycastle: ^3.7.3
+  csv: ^5.1.1
+  permission_handler: ^11.3.1
+  share_plus: ^9.0.0
+  file_picker: ^6.2.0
+Then run:
 
-    share_plus: For sharing the exported encrypted .pvault file.
+bash
+Copy
+Edit
+flutter pub get
+## 🔐 Android Permissions
+Edit android/app/src/main/AndroidManifest.xml:
 
-Setup and Installation
+xml
+Copy
+Edit
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-Follow these steps to get the Password Vault app running on your local machine.
-Prerequisites
+<application
+    android:requestLegacyExternalStorage="true"
+    ...>
+</application>
+## ▶️ Running the App
+1. Connect Device or Start Emulator
+bash
+Copy
+Edit
+flutter devices
+2. Run the App
+bash
+Copy
+Edit
+flutter run
+Alternatively, open lib/main.dart in VS Code and press F5 to debug.
 
-    Flutter SDK:
-
-        Install Flutter by following the official guide: https://flutter.dev/docs/get-started/install
-
-        Ensure flutter/bin is added to your system's PATH.
-
-    Android Studio:
-
-        Download and install Android Studio: https://developer.android.com/studio
-
-        Install the necessary Android SDK Platforms and SDK Tools (e.g., Android API 34, Android SDK Build-Tools, Android SDK Platform-Tools, Android Emulator).
-
-        Accept Android licenses by running flutter doctor --android-licenses in your terminal.
-
-    VS Code (Recommended IDE):
-
-        Download and install VS Code: https://code.visualstudio.com/
-
-        Install the official "Flutter" extension from the VS Code Extensions marketplace.
-
-Project Setup
-
-    Clone the Repository (or create a new project):
-    If you're starting from scratch, create a new Flutter project:
-
-    flutter create password_vault_app
-    cd password_vault_app
-
-    If you're cloning:
-
-    git clone <repository_url> password_vault_app
-    cd password_vault_app
-
-    Add Dependencies:
-    Open pubspec.yaml and ensure the following dependencies are listed under dependencies::
-
-    dependencies:
-      flutter:
-        sdk: flutter
-      cupertino_icons: ^1.0.6
-      flutter_secure_storage: ^9.0.0
-      sqflite_sqlcipher: ^2.3.0
-      path_provider: ^2.1.3
-      path: ^1.9.0
-      encrypt: ^5.0.1
-      pointycastle: ^3.7.3
-      csv: ^5.1.1
-      permission_handler: ^11.3.1
-      share_plus: ^9.0.0
-      file_picker: ^6.2.0 # Ensure this is present
-
-    After updating, run:
-
-    flutter pub get
-
-    Android Permissions:
-    Open android/app/src/main/AndroidManifest.xml and add the following permissions inside the <manifest> tag (but outside <application>):
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- For Android 10 (API 29) and above, if targeting older APIs for broad file access -->
-    <application
-        android:requestLegacyExternalStorage="true"
-        ...
-    </application>
-
-Running the Application
-
-    Connect a Device or Start an Emulator:
-
-        Open Android Studio and start an Android Virtual Device (AVD).
-
-        Or, connect a physical Android device and ensure USB debugging is enabled.
-
-        Verify Flutter recognizes your device: flutter devices
-
-    Run the App:
-    From your project root directory in the terminal:
-
-    flutter run
-
-    Alternatively, in VS Code, open lib/main.dart and press F5 or go to Run > Start Debugging.
-
-Project Structure
-
+## 🗂 Project Structure
+bash
+Copy
+Edit
 password_vault_app/
 ├── lib/
-│   ├── main.dart             # Main entry point of the Flutter app
+│   ├── main.dart                # Entry point
 │   ├── models/
-│   │   └── password_entry.dart # Data model for a password entry
+│   │   └── password_entry.dart  # Password entry data model
 │   ├── services/
-│   │   ├── crypto_service.dart   # Handles AES encryption/decryption and key derivation
-│   │   ├── database_service.dart # Manages encrypted SQLite database operations
-│   │   └── export_service.dart   # Handles encrypted CSV export and import
+│   │   ├── crypto_service.dart   # Encryption/decryption logic
+│   │   ├── database_service.dart # Encrypted DB operations
+│   │   └── export_service.dart   # Encrypted import/export logic
 │   └── screens/
-│       └── home_page.dart      # The main UI for displaying and managing passwords
-├── pubspec.yaml              # Project dependencies and metadata
-├── android/                  # Android native project files
-├── ios/                      # iOS native project files (for future expansion)
-└── ... (other Flutter project files)
+│       └── home_page.dart        # Main UI for managing passwords
+├── android/                    # Native Android project
+├── ios/                        # iOS support (future)
+├── pubspec.yaml                # Project metadata and dependencies
 
-Future Enhancements (Advanced Features)
 
-The current implementation provides core secure password management. Future enhancements could include:
+## 🌱 Future Enhancements
+- ✅ Biometric Authentication (Face/Touch ID)
 
-    Autofill Service Integration: Implementing an Android AutofillService to allow the vault to suggest and fill credentials in other applications and websites. This requires significant native Android development and Flutter Platform Channel communication.
+- 🔄 Cloud Sync (Encrypted data across devices)
 
-    "Save on the Go" (Accessibility Service): Developing an Android AccessibilityService to detect login forms in other apps and offer to save new credentials. This is also a complex native integration with privacy considerations.
+- 💡 Autofill Integration (AutofillService on Android)
 
-    Biometric Authentication: Integrating fingerprint or face unlock for quick and secure access to the vault.
+- 🧠 "Save on the Go" (AccessibilityService)
 
-    Cloud Sync: Securely syncing encrypted vault data across multiple devices (requires a backend service and careful security design).
+- 🔒 Password Strength Indicator
 
-    Password Generation: A built-in strong password generator.
+- 🔐 Strong Password Generator
 
-    Password Strength Indicator: Visual feedback on the strength of entered passwords
+### 🛡️ Security Note
+This application uses industry-standard cryptography (AES-256 GCM, PBKDF2 with salt, encrypted local storage). However, always ensure your device is secure (locked, not rooted) and never share your master password.
