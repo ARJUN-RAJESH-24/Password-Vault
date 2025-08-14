@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:password_vault_app/models/credential.dart';
 import 'package:password_vault_app/providers/credential_provider.dart';
 import 'package:password_vault_app/screens/add_credential_screen.dart';
 import 'package:password_vault_app/utils/theme.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class ViewCredentialScreen extends StatefulWidget {
   final Credential credential;
@@ -51,9 +51,8 @@ class _ViewCredentialScreenState extends State<ViewCredentialScreen>
 
   void _copyToClipboard(String text, String type) {
     Clipboard.setData(ClipboardData(text: text));
-    HapticFeedback.successImpact();
+    HapticFeedback.mediumImpact();
     
-    // Trigger pulse animation
     _pulseController.forward().then((_) {
       _pulseController.reverse();
     });
@@ -104,9 +103,9 @@ class _ViewCredentialScreenState extends State<ViewCredentialScreen>
               await Provider.of<CredentialProvider>(context, listen: false)
                   .deleteCredential(widget.credential.id!);
               if (mounted) {
-                HapticFeedback.successImpact();
-                Navigator.of(context).pop(); // Close dialog
-                Navigator.of(context).pop(); // Go back to home screen
+                HapticFeedback.mediumImpact();
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
               }
             },
             style: ElevatedButton.styleFrom(backgroundColor: AppTheme.error),
@@ -120,35 +119,35 @@ class _ViewCredentialScreenState extends State<ViewCredentialScreen>
   IconData _getServiceIcon(String title) {
     final lowerTitle = title.toLowerCase();
     if (lowerTitle.contains('google') || lowerTitle.contains('gmail')) {
-      return Iconsax.google;
+      return Icons.public;
     } else if (lowerTitle.contains('facebook') || lowerTitle.contains('meta')) {
-      return Iconsax.facebook;
+      return Icons.facebook;
     } else if (lowerTitle.contains('twitter') || lowerTitle.contains('x')) {
-      return Iconsax.twitter;
+      return Icons.send;
     } else if (lowerTitle.contains('instagram')) {
-      return Iconsax.instagram;
+      return Icons.camera_alt;
     } else if (lowerTitle.contains('linkedin')) {
-      return Iconsax.linkedin;
+      return Icons.link;
     } else if (lowerTitle.contains('github')) {
-      return Iconsax.code;
+      return Icons.code;
     } else if (lowerTitle.contains('netflix')) {
-      return Iconsax.video_play;
+      return Icons.movie;
     } else if (lowerTitle.contains('spotify')) {
-      return Iconsax.music;
+      return Icons.music_note;
     } else if (lowerTitle.contains('amazon')) {
-      return Iconsax.shop;
+      return Icons.shopping_cart;
     } else if (lowerTitle.contains('apple')) {
-      return Iconsax.apple;
+      return Icons.phone_iphone;
     } else if (lowerTitle.contains('microsoft')) {
-      return Iconsax.microsoft;
+      return Icons.laptop;
     } else if (lowerTitle.contains('dropbox')) {
-      return Iconsax.cloud;
+      return Icons.cloud;
     } else if (lowerTitle.contains('bank') || lowerTitle.contains('finance')) {
-      return Iconsax.bank;
+      return Icons.account_balance;
     } else if (lowerTitle.contains('mail') || lowerTitle.contains('email')) {
-      return Iconsax.sms;
+      return Icons.email;
     } else {
-      return Iconsax.lock_1;
+      return Icons.lock_outline;
     }
   }
 
@@ -261,7 +260,7 @@ class _ViewCredentialScreenState extends State<ViewCredentialScreen>
               borderRadius: BorderRadius.circular(12),
             ),
             child: IconButton(
-              icon: const Icon(Iconsax.edit),
+              icon: const Icon(Icons.edit_outlined),
               onPressed: () {
                 HapticFeedback.selectionClick();
                 Navigator.of(context).push(
@@ -293,7 +292,7 @@ class _ViewCredentialScreenState extends State<ViewCredentialScreen>
               borderRadius: BorderRadius.circular(12),
             ),
             child: IconButton(
-              icon: const Icon(Iconsax.trash),
+              icon: const Icon(Icons.delete_outline),
               onPressed: () {
                 HapticFeedback.selectionClick();
                 _deleteCredential();
@@ -364,7 +363,7 @@ class _ViewCredentialScreenState extends State<ViewCredentialScreen>
             _buildInfoRow(
               'Username',
               widget.credential.username,
-              Iconsax.user,
+              Icons.person_outline,
               () => _copyToClipboard(widget.credential.username, 'Username'),
             ),
             const SizedBox(height: 24),
@@ -406,7 +405,7 @@ class _ViewCredentialScreenState extends State<ViewCredentialScreen>
               ],
             ),
             const Spacer(),
-            Icon(Iconsax.copy, color: AppTheme.textSecondary, size: 18),
+            Icon(Icons.copy_outlined, color: AppTheme.textSecondary, size: 18),
           ],
         ),
       ),
@@ -429,7 +428,7 @@ class _ViewCredentialScreenState extends State<ViewCredentialScreen>
               ),
               child: Row(
                 children: [
-                  Icon(Iconsax.key, color: AppTheme.textSecondary, size: 20),
+                  Icon(Icons.key_outlined, color: AppTheme.textSecondary, size: 20),
                   const SizedBox(width: 12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -455,7 +454,7 @@ class _ViewCredentialScreenState extends State<ViewCredentialScreen>
                   const Spacer(),
                   IconButton(
                     icon: Icon(
-                      _isPasswordVisible ? Iconsax.eye : Iconsax.eye_slash,
+                      _isPasswordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
                       color: AppTheme.textSecondary,
                       size: 18,
                     ),
@@ -466,7 +465,7 @@ class _ViewCredentialScreenState extends State<ViewCredentialScreen>
                       HapticFeedback.selectionClick();
                     },
                   ),
-                  Icon(Iconsax.copy, color: AppTheme.textSecondary, size: 18),
+                  Icon(Icons.copy_outlined, color: AppTheme.textSecondary, size: 18),
                 ],
               ),
             ),
@@ -493,7 +492,7 @@ class _ViewCredentialScreenState extends State<ViewCredentialScreen>
                   ),
                 );
               },
-              icon: const Icon(Iconsax.edit, color: AppTheme.primaryBlue),
+              icon: const Icon(Icons.edit_outlined, color: AppTheme.primaryBlue),
               label: const Text(
                 'Edit',
                 style: TextStyle(color: AppTheme.primaryBlue),
@@ -510,7 +509,7 @@ class _ViewCredentialScreenState extends State<ViewCredentialScreen>
             ),
             child: TextButton.icon(
               onPressed: _deleteCredential,
-              icon: const Icon(Iconsax.trash, color: AppTheme.error),
+              icon: const Icon(Icons.delete_outline, color: AppTheme.error),
               label: const Text(
                 'Delete',
                 style: TextStyle(color: AppTheme.error),

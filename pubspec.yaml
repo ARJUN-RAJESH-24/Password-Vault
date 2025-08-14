@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
   
   # State management
-  provider: ^6.0.5
+  provider: ^6.1.1
   
   # Database
   sqflite: ^2.3.0
@@ -36,16 +36,18 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.1
+  flutter_lints: ^3.0.2
 
 flutter:
   uses-material-design: true
+
+  # The asset and font entries that caused the errors have been removed.
+  # If you add these assets later, you'll need to uncomment and update these lines.
+  # assets:
+  #   - assets/animations/
+  #   - assets/images/
   
-  assets:
-    - assets/animations/
-    - assets/images/
-  
-  fonts:
-    - family: CustomIcons
-      fonts:
-        - asset: assets/fonts/CustomIcons.ttf
+  # fonts:
+  #   - family: CustomIcons
+  #     fonts:
+  #       - asset: assets/fonts/CustomIcons.ttf

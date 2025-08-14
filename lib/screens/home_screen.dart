@@ -5,9 +5,10 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:password_vault_app/providers/credential_provider.dart';
 import 'package:password_vault_app/screens/add_credential_screen.dart';
-import 'package:password_vault_app/screens/settings_screen.dart';
+import 'package:password_vault_app/screens/settings_screen.dart'; // Added this import
 import 'package:password_vault_app/widgets/credential_tile.dart';
 import 'package:password_vault_app/utils/theme.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -220,11 +221,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         }
 
         final filteredCredentials = _searchQuery.isEmpty
-            ? credentials
-            : credentials.where((credential) {
-                return credential.title.toLowerCase().contains(_searchQuery) ||
-                    credential.username.toLowerCase().contains(_searchQuery);
-              }).toList();
+                ? credentials
+                : credentials.where((credential) {
+                    return credential.title.toLowerCase().contains(_searchQuery) ||
+                        credential.username.toLowerCase().contains(_searchQuery);
+                  }).toList();
 
         if (filteredCredentials.isEmpty) {
           return _buildNoResultsState();

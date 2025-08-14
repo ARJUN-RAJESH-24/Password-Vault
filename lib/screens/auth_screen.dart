@@ -7,6 +7,7 @@ import 'package:password_vault_app/providers/credential_provider.dart';
 import 'package:password_vault_app/services/secure_storage_service.dart';
 import 'package:password_vault_app/utils/theme.dart';
 import 'package:password_vault_app/widgets/animated_button.dart';
+import 'package:password_vault_app/services/database_service.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -82,7 +83,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
         if (storedPassword == _passwordController.text) {
           await Provider.of<CredentialProvider>(context, listen: false).loadCredentials();
           if (mounted) {
-            HapticFeedback.successImpact();
+            HapticFeedback.mediumImpact();
             Navigator.of(context).pushReplacementNamed('/home');
           }
         } else {
@@ -106,7 +107,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
         await secureStorage.saveMasterPassword(_passwordController.text);
         await Provider.of<CredentialProvider>(context, listen: false).loadCredentials();
         if (mounted) {
-          HapticFeedback.successImpact();
+          HapticFeedback.mediumImpact();
           Navigator.of(context).pushReplacementNamed('/home');
         }
       }
@@ -382,8 +383,9 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
           ElevatedButton(
             onPressed: () async {
               final secureStorage = SecureStorageService();
+              final dbService = DatabaseService();
               await secureStorage.deleteMasterPassword();
-              // Also clear the database here if needed
+              await dbService.deleteDatabase();
               if (mounted) {
                 Navigator.of(context).pop();
                 setState(() {

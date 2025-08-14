@@ -69,27 +69,27 @@ class _CredentialTileState extends State<CredentialTile>
   IconData _getServiceIcon(String title) {
     final lowerTitle = title.toLowerCase();
     if (lowerTitle.contains('google') || lowerTitle.contains('gmail')) {
-      return Iconsax.google;
+      return Icons.language; // Using a generic icon that is likely to be available
     } else if (lowerTitle.contains('facebook') || lowerTitle.contains('meta')) {
-      return Iconsax.facebook;
+      return Icons.facebook_rounded;
     } else if (lowerTitle.contains('twitter') || lowerTitle.contains('x')) {
-      return Iconsax.twitter;
+      return Iconsax.send_1; // Changed to a more generic send icon
     } else if (lowerTitle.contains('instagram')) {
       return Iconsax.instagram;
     } else if (lowerTitle.contains('linkedin')) {
-      return Iconsax.linkedin;
+      return Iconsax.link; // Changed to a more generic link icon
     } else if (lowerTitle.contains('github')) {
       return Iconsax.code;
     } else if (lowerTitle.contains('netflix')) {
       return Iconsax.video_play;
     } else if (lowerTitle.contains('spotify')) {
-      return Iconsax.music;
+      return Iconsax.music_square;
     } else if (lowerTitle.contains('amazon')) {
       return Iconsax.shop;
     } else if (lowerTitle.contains('apple')) {
-      return Iconsax.apple;
+      return Iconsax.mobile; // Changed to a more generic mobile icon
     } else if (lowerTitle.contains('microsoft')) {
-      return Iconsax.microsoft;
+      return Icons.laptop; // Changed to a more generic laptop icon
     } else if (lowerTitle.contains('dropbox')) {
       return Iconsax.cloud;
     } else if (lowerTitle.contains('bank') || lowerTitle.contains('finance')) {
@@ -191,7 +191,6 @@ class _CredentialTileState extends State<CredentialTile>
                   padding: const EdgeInsets.all(20),
                   child: Row(
                     children: [
-                      // Service icon
                       Container(
                         width: 50,
                         height: 50,
@@ -212,8 +211,6 @@ class _CredentialTileState extends State<CredentialTile>
                         ),
                       ),
                       const SizedBox(width: 16),
-                      
-                      // Content
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -248,8 +245,6 @@ class _CredentialTileState extends State<CredentialTile>
                           ],
                         ),
                       ),
-                      
-                      // Arrow indicator
                       Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(

@@ -63,4 +63,11 @@ class DatabaseService {
       whereArgs: [id],
     );
   }
+
+  Future<void> deleteDatabase() async {
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, 'password_vault.db');
+    await databaseFactory.deleteDatabase(path);
+    _database = null;
+  }
 }
