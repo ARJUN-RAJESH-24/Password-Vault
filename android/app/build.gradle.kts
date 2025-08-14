@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.example.password_vault_app.password_vault_app"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973" // This line was updated to fix the error
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
