@@ -13,14 +13,20 @@ class AppTheme {
   static const Color success = Color(0xFF4CAF50);
   static const Color warning = Color(0xFFFF9800);
   static const Color error = Color(0xFFF44336);
-  
+
+  static const Color lightPrimary = Color(0xFFFFFFFF);
+  static const Color lightSurface = Color(0xFFF2F2F7);
+  static const Color lightCard = Color(0xFFFFFFFF);
+  static const Color lightTextPrimary = Color(0xFF0A0A0B);
+  static const Color lightTextSecondary = Color(0xFF636366);
+
   // Gradients
   static const LinearGradient primaryGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [primaryBlue, accent],
   );
-  
+
   static const LinearGradient cardGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
@@ -33,7 +39,7 @@ class AppTheme {
       brightness: Brightness.dark,
       primaryColor: primaryBlue,
       scaffoldBackgroundColor: primaryDark,
-      
+
       // Color scheme
       colorScheme: const ColorScheme.dark(
         primary: primaryBlue,
@@ -46,7 +52,7 @@ class AppTheme {
         onBackground: textPrimary,
         error: error,
       ),
-      
+
       // Text theme
       textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme).copyWith(
         displayLarge: GoogleFonts.inter(
@@ -93,7 +99,7 @@ class AppTheme {
           color: textPrimary,
         ),
       ),
-      
+
       // App bar theme
       appBarTheme: AppBarTheme(
         elevation: 0,
@@ -106,7 +112,7 @@ class AppTheme {
         ),
         centerTitle: true,
       ),
-      
+
       // Card theme
       cardTheme: const CardThemeData(
         elevation: 0,
@@ -115,7 +121,7 @@ class AppTheme {
           borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
       ),
-      
+
       // Elevated button theme
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -132,7 +138,7 @@ class AppTheme {
           ),
         ),
       ),
-      
+
       // Input decoration theme
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
@@ -157,7 +163,7 @@ class AppTheme {
         hintStyle: GoogleFonts.inter(color: textSecondary),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       ),
-      
+
       // List tile theme
       listTileTheme: ListTileThemeData(
         tileColor: cardDark,
@@ -175,13 +181,13 @@ class AppTheme {
           color: textSecondary,
         ),
       ),
-      
+
       // Icon theme
       iconTheme: const IconThemeData(
         color: textPrimary,
         size: 24,
       ),
-      
+
       // Floating action button theme
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: primaryBlue,
@@ -189,7 +195,7 @@ class AppTheme {
         elevation: 8,
         shape: CircleBorder(),
       ),
-      
+
       // Dialog theme
       dialogTheme: const DialogThemeData(
         backgroundColor: cardDark,
@@ -206,7 +212,7 @@ class AppTheme {
           color: textSecondary,
         ),
       ),
-      
+
       // Bottom sheet theme
       bottomSheetTheme: const BottomSheetThemeData(
         backgroundColor: cardDark,
@@ -217,11 +223,214 @@ class AppTheme {
           ),
         ),
       ),
-      
+
       // Snack bar theme
       snackBarTheme: SnackBarThemeData(
         backgroundColor: cardDark,
         contentTextStyle: GoogleFonts.inter(color: textPrimary),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
+  static ThemeData get lightTheme {
+    return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.light,
+      primaryColor: primaryBlue,
+      scaffoldBackgroundColor: lightSurface,
+
+      // Color scheme
+      colorScheme: const ColorScheme.light(
+        primary: primaryBlue,
+        secondary: accent,
+        surface: lightCard,
+        background: lightSurface,
+        onPrimary: Colors.white,
+        onSecondary: lightTextPrimary,
+        onSurface: lightTextPrimary,
+        onBackground: lightTextPrimary,
+        error: error,
+      ),
+
+      // Text theme
+      textTheme: GoogleFonts.interTextTheme(ThemeData.light().textTheme).copyWith(
+        displayLarge: GoogleFonts.inter(
+          fontSize: 32,
+          fontWeight: FontWeight.bold,
+          color: lightTextPrimary,
+        ),
+        displayMedium: GoogleFonts.inter(
+          fontSize: 28,
+          fontWeight: FontWeight.bold,
+          color: lightTextPrimary,
+        ),
+        headlineLarge: GoogleFonts.inter(
+          fontSize: 24,
+          fontWeight: FontWeight.w600,
+          color: lightTextPrimary,
+        ),
+        headlineMedium: GoogleFonts.inter(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: lightTextPrimary,
+        ),
+        titleLarge: GoogleFonts.inter(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: lightTextPrimary,
+        ),
+        titleMedium: GoogleFonts.inter(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: lightTextPrimary,
+        ),
+        bodyLarge: GoogleFonts.inter(
+          fontSize: 16,
+          color: lightTextPrimary,
+        ),
+        bodyMedium: GoogleFonts.inter(
+          fontSize: 14,
+          color: lightTextSecondary,
+        ),
+        labelLarge: GoogleFonts.inter(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: lightTextPrimary,
+        ),
+      ),
+
+      // App bar theme
+      appBarTheme: AppBarTheme(
+        elevation: 0,
+        backgroundColor: lightSurface,
+        foregroundColor: lightTextPrimary,
+        titleTextStyle: GoogleFonts.inter(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: lightTextPrimary,
+        ),
+        centerTitle: true,
+      ),
+
+      // Card theme
+      cardTheme: const CardThemeData(
+        elevation: 0,
+        color: lightCard,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(16)),
+        ),
+      ),
+
+      // Elevated button theme
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          elevation: 0,
+          backgroundColor: primaryBlue,
+          foregroundColor: Colors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          textStyle: GoogleFonts.inter(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+
+      // Input decoration theme
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: lightCard,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: primaryBlue, width: 2),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: error, width: 2),
+        ),
+        labelStyle: GoogleFonts.inter(color: lightTextSecondary),
+        hintStyle: GoogleFonts.inter(color: lightTextSecondary),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      ),
+
+      // List tile theme
+      listTileTheme: ListTileThemeData(
+        tileColor: lightCard,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        titleTextStyle: GoogleFonts.inter(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: lightTextPrimary,
+        ),
+        subtitleTextStyle: GoogleFonts.inter(
+          fontSize: 14,
+          color: lightTextSecondary,
+        ),
+      ),
+
+      // Icon theme
+      iconTheme: const IconThemeData(
+        color: lightTextPrimary,
+        size: 24,
+      ),
+
+      // Floating action button theme
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: primaryBlue,
+        foregroundColor: Colors.white,
+        elevation: 8,
+        shape: CircleBorder(),
+      ),
+
+      // Dialog theme
+      dialogTheme: const DialogThemeData(
+        backgroundColor: lightCard,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        titleTextStyle: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: lightTextPrimary,
+        ),
+        contentTextStyle: TextStyle(
+          fontSize: 14,
+          color: lightTextSecondary,
+        ),
+      ),
+
+      // Bottom sheet theme
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: lightCard,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+      ),
+
+      // Snack bar theme
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: lightCard,
+        contentTextStyle: GoogleFonts.inter(color: lightTextPrimary),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),

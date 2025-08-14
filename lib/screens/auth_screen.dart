@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:password_vault_app/providers/credential_provider.dart';
 import 'package:password_vault_app/services/secure_storage_service.dart';
 import 'package:password_vault_app/utils/theme.dart';
@@ -24,6 +25,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
   bool _isLoading = false;
   late AnimationController _shakeController;
   late Animation<double> _shakeAnimation;
+  final LocalAuthentication _localAuth = LocalAuthentication();
 
   @override
   void initState() {
@@ -56,6 +58,37 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
       setState(() {
         _isLogin = hasPassword;
       });
+      // If a master password exists, attempt to authenticate with biometrics first
+      if (hasPassword) {
+        _authenticateWithBiometrics();
+      }
+    }
+  }
+
+  Future<void> _authenticateWithBiometrics() async {
+    bool canAuthenticateWithBiometrics = await _localAuth.canCheckBiometrics;
+    if (canAuthenticateWithBiometrics) {
+      try {
+        bool didAuthenticate = await _localAuth.authenticate(
+          localizedReason: 'Please authenticate to unlock your SecureVault',
+        );
+        if (didAuthenticate) {
+          await Provider.of<CredentialProvider>(context, listen: false).loadCredentials();
+          if (mounted) {
+            HapticFeedback.mediumImpact();
+            Navigator.of(context).pushReplacementNamed('/home');
+          }
+        }
+      } on PlatformException catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Biometric authentication failed: ${e.message}'),
+              backgroundColor: AppTheme.error,
+            ),
+          );
+        }
+      }
     }
   }
 
@@ -81,6 +114,8 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
       if (_isLogin) {
         final storedPassword = await secureStorage.getMasterPassword();
         if (storedPassword == _passwordController.text) {
+          // This is a crucial line. We need to load credentials AFTER authentication
+          // and BEFORE navigating to the home screen.
           await Provider.of<CredentialProvider>(context, listen: false).loadCredentials();
           if (mounted) {
             HapticFeedback.mediumImpact();
